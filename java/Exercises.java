@@ -20,7 +20,7 @@ public class Exercises {
         return counts;
     }
 
-    // Write your first then lower case function here
+    // first then lowercase function
     public static Optional<String> firstThenLowerCase(List<String> strings, Predicate<String> predicate) {
         return strings.stream()
                 .filter(predicate)
@@ -28,7 +28,7 @@ public class Exercises {
                 .findFirst();
     }
 
-    // Write your say function here
+    // say function
     private String phrase;
 
     private Exercises(String phrase) {
@@ -48,7 +48,7 @@ public class Exercises {
         return phrase.trim();
     }
 
-    // Write your line count function here
+    // meaningfulLineCount function
     public static int meaningfulLineCount(String filePath) throws IOException {
         int meaningfulLinesCount = 0;
 
@@ -68,7 +68,7 @@ public class Exercises {
     }
 }
 
-// Write your Quaternion record class here
+// Quaternion data class
 record Quaternion(double a, double b, double c, double d) {
     static final Quaternion ZERO = new Quaternion(0, 0, 0, 0);
     static final Quaternion I = new Quaternion(0, 1, 0, 0);
@@ -119,7 +119,7 @@ record Quaternion(double a, double b, double c, double d) {
     }
 }
 
-// Write your BinarySearchTree sealed interface and its implementations here
+// Binary Search Tree interface
 sealed interface BinarySearchTree {
     int size();
     boolean contains(String value);
@@ -173,7 +173,7 @@ final class Node implements BinarySearchTree {
     }
 }
 
-// Implement Empty class for BinarySearchTree
+// implementing classes
 final class Empty implements BinarySearchTree {
     public int size() {
         return 0;

@@ -15,12 +15,12 @@ func change(_ amount: Int) -> Result<[Int:Int], NegativeAmountError> {
     return .success(counts)
 }
 
-// Write your first then lower case function here
+//first then lower case function 
 func firstThenLowerCase(of strings: [String], satisfying predicate: (String) -> Bool) -> String? {
     return strings.first(where: predicate)?.lowercased()
 }
 
-// Write your say function here
+// say function 
 class Say {
     var phrase: String
 
@@ -43,7 +43,7 @@ func say(_ initialPhrase: String = "") -> Say {
 }
 
 
-// Write your meaningfulLineCount function here
+// meaningfulLineCount function
 func meaningfulLineCount(_ filePath: String) -> Result<Int, Error> {
     do {
         let content = try String(contentsOfFile: filePath, encoding: .utf8)
@@ -62,7 +62,7 @@ func meaningfulLineCount(_ filePath: String) -> Result<Int, Error> {
 }
 
 
-// Write your Quaternion struct here
+// Quaternion struct
 struct Quaternion: CustomStringConvertible, Equatable {
     let a, b, c, d: Double 
 
@@ -128,7 +128,7 @@ struct Quaternion: CustomStringConvertible, Equatable {
 }
 
 
-// Write your Binary Search Tree enum here
+// Binary Search Tree enum 
 indirect enum BinarySearchTree {
     case empty
     case node(String, BinarySearchTree, BinarySearchTree)
@@ -167,7 +167,7 @@ indirect enum BinarySearchTree {
             } else if value > data {
                 return .node(data, left, right.insert(value))
             } else {
-                return self // No duplicates allowed
+                return self 
             }
         }
     }
