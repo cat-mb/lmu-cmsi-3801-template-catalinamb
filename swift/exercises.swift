@@ -44,64 +44,53 @@ func say(_ initialPhrase: String = "") -> Say {
 
 
 // Write your meaningfulLineCount function here
-
 func meaningfulLineCount(_ filePath: String) -> Result<Int, Error> {
     do {
-        // Read the file content
         let content = try String(contentsOfFile: filePath, encoding: .utf8)
         
-        // Split content into lines
         let lines = content.split(separator: "\n")
         
-        // Filter out meaningful lines
         let meaningfulLines = lines.filter { line in
             let trimmedLine = line.trimmingCharacters(in: .whitespaces)
             return !trimmedLine.isEmpty && !trimmedLine.hasPrefix("#")
         }
         
-        // Return the count of meaningful lines
         return .success(meaningfulLines.count)
     } catch {
-        // Return an error if file not found
         return .failure(error)
     }
 }
 
 
 // Write your Quaternion struct here
-
 struct Quaternion: CustomStringConvertible, Equatable {
-    let a,b,c,d: Double 
+    let a, b, c, d: Double 
 
-    // static constants 
     static let ZERO = Quaternion(a: 0, b: 0, c: 0, d: 0) 
     static let ONE = Quaternion(a: 1, b: 0, c: 0, d: 0) 
     static let I = Quaternion(a: 0, b: 1, c: 0, d: 0)   
     static let J = Quaternion(a: 0, b: 0, c: 1, d: 0)  
     static let K = Quaternion(a: 0, b: 0, c: 0, d: 1)  
 
-    // initializer but defualt so any part can be omitted
     init(a: Double = 0, b: Double = 0, c: Double = 0, d: Double = 0) {
         self.a = a
         self.b = b
         self.c = c
         self.d = d
     }
-    // returns the quaternion's coefficients as an array 
+
     var coefficients: [Double] {
         return [a, b, c, d]
     }
-    // returns the conjugate of the quaternion (negates the imaginary parts)
+
     var conjugate: Quaternion {
         return Quaternion(a: a, b: -b, c: -c, d: -d)
     }
 
-     // addition 
     static func +(lhs: Quaternion, rhs: Quaternion) -> Quaternion {
         return Quaternion(a: lhs.a + rhs.a, b: lhs.b + rhs.b, c: lhs.c + rhs.c, d: lhs.d + rhs.d)
     }
 
-    // multiplication 
     static func *(lhs: Quaternion, rhs: Quaternion) -> Quaternion {
         return Quaternion(
             a: lhs.a * rhs.a - lhs.b * rhs.b - lhs.c * rhs.c - lhs.d * rhs.d,  // Real part
@@ -111,7 +100,6 @@ struct Quaternion: CustomStringConvertible, Equatable {
         )
     }
 
-    // equal check between two quaternions
     static func ==(lhs: Quaternion, rhs: Quaternion) -> Bool {
         return abs(lhs.a - rhs.a) < 1e-10 &&
                abs(lhs.b - rhs.b) < 1e-10 &&
@@ -119,7 +107,6 @@ struct Quaternion: CustomStringConvertible, Equatable {
                abs(lhs.d - rhs.d) < 1e-10
     }
 
-    // provides a string representation of the quaternion, omitting zero parts
     var description: String {
         var parts: [String] = []
 
@@ -127,26 +114,21 @@ struct Quaternion: CustomStringConvertible, Equatable {
             parts.append("\(a)") 
         }
         if b != 0 {
-            // append i part 
             parts.append(b == 1 ? "i" : (b == -1 ? "-i" : "\(b)i"))
         }
         if c != 0 {
-            // append j part 
             parts.append(c == 1 ? "j" : (c == -1 ? "-j" : "\(c)j"))
         }
         if d != 0 {
-            // append k part 
             parts.append(d == 1 ? "k" : (d == -1 ? "-k" : "\(d)k"))
         }
 
-        // join parts
         return parts.isEmpty ? "0" : parts.joined(separator: "+").replacingOccurrences(of: "+-", with: "-")
     }
 }
 
 
 // Write your Binary Search Tree enum here
-
 indirect enum BinarySearchTree {
     case empty
     case node(String, BinarySearchTree, BinarySearchTree)

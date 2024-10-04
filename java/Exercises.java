@@ -29,7 +29,6 @@ public class Exercises {
     }
 
     // Write your say function here
-    
     private String phrase;
 
     private Exercises(String phrase) {
@@ -37,7 +36,7 @@ public class Exercises {
     }
 
     public static Exercises say(String... words) {
-    return new Exercises(String.join(" ", words).trim());
+        return new Exercises(String.join(" ", words).trim());
     }
 
     public Exercises and(String word) {
@@ -49,10 +48,7 @@ public class Exercises {
         return phrase.trim();
     }
 
-
-
     // Write your line count function here
-    
     public static int meaningfulLineCount(String filePath) throws IOException {
         int meaningfulLinesCount = 0;
 
@@ -74,7 +70,6 @@ public class Exercises {
 
 // Write your Quaternion record class here
 record Quaternion(double a, double b, double c, double d) {
-
     static final Quaternion ZERO = new Quaternion(0, 0, 0, 0);
     static final Quaternion I = new Quaternion(0, 1, 0, 0);
     static final Quaternion J = new Quaternion(0, 0, 1, 0);
@@ -96,10 +91,10 @@ record Quaternion(double a, double b, double c, double d) {
 
     Quaternion times(Quaternion q) {
         return new Quaternion(
-            a * q.a - b * q.b - c * q.c - d * q.d,
-            a * q.b + b * q.a + c * q.d - d * q.c,
-            a * q.c - b * q.d + c * q.a + d * q.b,
-            a * q.d + b * q.c - c * q.b + d * q.a
+                a * q.a - b * q.b - c * q.c - d * q.d,
+                a * q.b + b * q.a + c * q.d - d * q.c,
+                a * q.c - b * q.d + c * q.a + d * q.b,
+                a * q.d + b * q.c - c * q.b + d * q.a
         );
     }
 
@@ -117,56 +112,34 @@ record Quaternion(double a, double b, double c, double d) {
         return sb.length() == 0 ? "0" : sb.toString();
     }
 
-    private void appendTerm(StringBuilder sb, double coeff, String symbol) {
-        if (coeff == 0) return;
-        if (sb.length() > 0 && coeff > 0) sb.append("+");
-        sb.append(coeff == 1 || coeff == -1 ? (coeff < 0 ? "-" : "") + symbol : coeff + symbol);
+    private void appendTerm(StringBuilder sb, double coefficient, String symbol) {
+        if (coefficient == 0) return;
+        if (sb.length() > 0 && coefficient > 0) sb.append("+");
+        sb.append(coefficient == 1 || coefficient == -1 ? (coefficient < 0 ? "-" : "") + symbol : coefficient + symbol);
     }
 }
-
-
-
 
 // Write your BinarySearchTree sealed interface and its implementations here
-sealed interface BinarySearchTree permits Empty, Node {
+sealed interface BinarySearchTree {
     int size();
-    boolean contains(String s);
-    BinarySearchTree insert(String s);
-}
-
-final class Empty implements BinarySearchTree {
-    public int size() {
-        return 0; 
-    }
-
-    public boolean contains(String s) {
-        return false; 
-    }
-
-    public BinarySearchTree insert(String s) {
-        return new Node(s); 
-    }
-
-    public String toString() {
-        return "()"; 
-    }
+    boolean contains(String value);
+    BinarySearchTree insert(String value);
+    String toString();
 }
 
 final class Node implements BinarySearchTree {
-    String data;
+    String value;
     BinarySearchTree left;
     BinarySearchTree right;
 
-    // Constructor for creating a new Node
-    Node(String data) {
-        this.data = data;
+    Node(String value) {
+        this.value = value;
         this.left = new Empty();
         this.right = new Empty();
     }
 
-    // New constructor for creating a Node with left and right children
-    Node(String data, BinarySearchTree left, BinarySearchTree right) {
-        this.data = data;
+    Node(String value, BinarySearchTree left, BinarySearchTree right) {
+        this.value = value;
         this.left = left;
         this.right = right;
     }
@@ -175,27 +148,46 @@ final class Node implements BinarySearchTree {
         return 1 + left.size() + right.size();
     }
 
-    public BinarySearchTree insert(String s) {
-        if (s.compareTo(this.data) < 0) {
-            return new Node(this.data, left.insert(s), right); 
-        } else if (s.compareTo(this.data) > 0) {
-            return new Node(this.data, left, right.insert(s)); 
+    public BinarySearchTree insert(String value) {
+        if (value.compareTo(this.value) < 0) {
+            return new Node(this.value, left.insert(value), right);
+        } else if (value.compareTo(this.value) > 0) {
+            return new Node(this.value, left, right.insert(value));
         } else {
-            return this; // No changes made if the value already exists
+            return this;
         }
     }
 
-    public boolean contains(String s) {
-        if (this.data.equals(s)) {
+    public boolean contains(String value) {
+        if (this.value.equals(value)) {
             return true;
-        } else if (s.compareTo(this.data) < 0) {
-            return left.contains(s); 
+        } else if (value.compareTo(this.value) < 0) {
+            return left.contains(value);
         } else {
-            return right.contains(s);
+            return right.contains(value);
         }
     }
 
     public String toString() {
-        return ("(" + left.toString() + this.data + right.toString() + ")").replace("()", ""); 
+        return ("(" + left.toString() + this.value + right.toString() + ")").replace("()", "");
+    }
+}
+
+// Implement Empty class for BinarySearchTree
+final class Empty implements BinarySearchTree {
+    public int size() {
+        return 0;
+    }
+
+    public boolean contains(String value) {
+        return false;
+    }
+
+    public BinarySearchTree insert(String value) {
+        return new Node(value);
+    }
+
+    public String toString() {
+        return "";
     }
 }

@@ -15,19 +15,17 @@ fun change(amount: Long): Map<Int, Long> {
 }
 
 // Write your first then lower case function here
-fun firstThenLowerCase(list: List<String>, predicate: (String) -> Boolean): String? {
-    return list.firstOrNull(predicate)?.lowercase()
+fun firstThenLowerCase(words: List<String>, predicate: (String) -> Boolean): String? {
+    return words.firstOrNull(predicate)?.lowercase()
 }
 
-
 // Write your say function here
-class Say(private val words: String = "") {
-
+class Say(private val sentence: String = "") {
     val phrase: String
-        get() = words.trim()
+        get() = sentence.trim()
 
-    fun and(next: String): Say {
-        return Say("$words $next")
+    fun and(nextWord: String): Say {
+        return Say("$sentence $nextWord")
     }
 }
 
@@ -35,15 +33,14 @@ fun say(word: String = ""): Say {
     return Say(word)
 }
 
-
 // Write your meaningfulLineCount function here
 fun meaningfulLineCount(filePath: String): Long {
-    val file = java.io.File(filePath)
-    if (!file.exists()) {
+    val inputFile = java.io.File(filePath)
+    if (!inputFile.exists()) {
         throw IOException("No such file")
     }
 
-    return file.readLines()
+    return inputFile.readLines()
         .filterNot { it.isBlank() || it.startsWith("//") }
         .count().toLong()
 }
@@ -85,14 +82,12 @@ data class Quaternion(val a: Double, val b: Double, val c: Double, val d: Double
     }
 }
 
-
-
 // Write your Binary Search Tree interface and implementing classes here
 sealed interface BinarySearchTree {
     fun size(): Int
     fun contains(value: String): Boolean
     fun insert(value: String): BinarySearchTree
-    override fun toString(): String 
+    override fun toString(): String
 
     object Empty : BinarySearchTree {
         override fun size(): Int = 0
@@ -117,7 +112,7 @@ data class Node(val value: String, val left: BinarySearchTree = BinarySearchTree
         return when {
             value < this.value -> Node(this.value, left.insert(value), right)
             value > this.value -> Node(this.value, left, right.insert(value))
-            else -> this // No duplicates allowed
+            else -> this
         }
     }
 
