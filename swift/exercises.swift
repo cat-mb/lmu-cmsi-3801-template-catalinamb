@@ -167,7 +167,7 @@ indirect enum BinarySearchTree {
             } else if value > data {
                 return .node(data, left, right.insert(value))
             } else {
-                return self 
+                 return self 
             }
         }
     }

@@ -14,14 +14,14 @@ def change(amount: int) -> dict[int, int]:
 
 
 # Write your first then lower case function here
-def first_then_lower_case(lst, predicate):
-    for item in lst:
+def first_then_lower_case(strings, predicate, /):
+    for item in strings:
         if predicate(item):
             return item.lower()
     return None
 
 # Write your powers generator here
-def powers_generator(base, limit):
+def powers_generator(*, base, limit):
     power = 1
     while power <= limit:
         yield power
@@ -31,9 +31,11 @@ def powers_generator(base, limit):
 def say(s=""):
     def next_word(next=None):
         if next is None:
-            return s.strip()
+                 return s.strip()
         return say(s + " " + next)
     return next_word
+
+
 
 # Write your line count function here
 def meaningful_line_count(file_path):
